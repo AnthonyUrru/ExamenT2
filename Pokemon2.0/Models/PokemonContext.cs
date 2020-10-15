@@ -13,6 +13,7 @@ namespace Pokemon2._0.Models
         public DbSet<Pokemon> Pokemons { get; set; }
         public DbSet<PokeType> PokeTypes { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UsuarioPokemon> UsuarioPokemons { get; set; }
         public PokemonContext(DbContextOptions<PokemonContext> options)
            : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -23,6 +24,7 @@ namespace Pokemon2._0.Models
             modelBuilder.ApplyConfiguration(new PokemonMap());
             modelBuilder.ApplyConfiguration(new PokeTypeMap());
             modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new UsuarioPokemonMap());
 
         }
 

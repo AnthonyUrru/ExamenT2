@@ -37,17 +37,24 @@ namespace Pokemon2._0.Controllers
 
             var Pokemons = _context.Pokemons.ToList();
             ViewBag.Types = _context.PokeTypes.ToList();
-            ViewBag.IdUser = LoggerUser().Id;
+           
             return View(Pokemons);
 
 
         }
         [HttpGet]
-        public ActionResult Mispokemones(string name)
+        public ActionResult Mispokemones()
         {
-            var Pokemons = _context.Pokemons.Where(o=>o.UserId==LoggerUser().Id).ToList();
+            var captura = _context.UsuarioPokemons.Where(o => o.UserId == LoggedUser().Id).ToList();
+            var captura2 = _context.UsuarioPokemons.Where(o => o.UserId == LoggedUser().Id).FirstOrDefault();
+
+            var pokemons = _context.Pokemons.Where(o=>o.UserId==LoggerUser().Id).ToList();
+            //pokemons.Id = captura.PokemonId;
+            //pokemons.UserId = LoggedUser().Id;
+           
+            ViewBag.Fecha = captura2.fecha;
             ViewBag.Types = _context.PokeTypes.ToList();
-            return View(Pokemons);
+            return View(pokemons);
 
 
         }
@@ -82,11 +89,34 @@ namespace Pokemon2._0.Controllers
             }
             return View();
         }
-        public ActionResult Capturar(int idpokemon, int iduser)
+        public ActionResult Capturar(int idpokemon)
         {
-            var pokemons = _context.Pokemons.Where(o=>o.Id==idpokemon);
-            var user = _context.Users.Where(o=>o.Id==iduser);
-            return View(pokemons);
+
+            var captura = new UsuarioPokemon();
+          
+            captura.PokemonId =idpokemon;
+            captura.UserId = LoggedUser().Id;
+            DateTime fecha = DateTime.Now;
+            captura.fecha = fecha;
+            var pokemon = _context.Pokemons.Where(o=>o.Id==idpokemon).FirstOrDefault();
+            pokemon.UserId = LoggedUser().Id;
+            
+            _context.SaveChanges();
+            _context.UsuarioPokemons.Add(captura);
+            _context.SaveChanges();
+           // var Pokemons = _context.Pokemons.Where(o => o.Id==idpokemon).ToList();
+            //ViewBag.Types = _context.PokeTypes.ToList();
+            return RedirectToAction("MisPokemones");
+        }
+
+         public  ActionResult Liberar(int idpokemon)
+        {
+            var captura = _context.UsuarioPokemons.Where(o=>o.PokemonId==idpokemon).FirstOrDefault();
+            var pokemon = _context.Pokemons.Where(o => o.Id == idpokemon).FirstOrDefault();
+            _context.Pokemons.Remove(pokemon);
+            _context.UsuarioPokemons.Remove(captura);
+            _context.SaveChanges();
+            return RedirectToAction("MisPokemones");
         }
         private User LoggerUser()
         {
@@ -94,7 +124,7 @@ namespace Pokemon2._0.Controllers
             var user = _context.Users.Where(o => o.Username == claim.Value).FirstOrDefault();
             return user;
         }
-
+        
 
         private string SaveImage(IFormFile image)
         {

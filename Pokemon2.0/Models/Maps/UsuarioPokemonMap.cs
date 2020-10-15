@@ -7,18 +7,12 @@ using System.Threading.Tasks;
 
 namespace Pokemon2._0.Models.Maps
 {
-    public class PokemonMap : IEntityTypeConfiguration<Pokemon>
+    public class UsuarioPokemonMap : IEntityTypeConfiguration<UsuarioPokemon>
     {
-        public void Configure(EntityTypeBuilder<Pokemon> builder)
+        public void Configure(EntityTypeBuilder<UsuarioPokemon> builder)
         {
-            builder.ToTable("Pokemon");
+            builder.ToTable("UsuarioPokemon");
             builder.HasKey(o => o.Id);
-
-            builder.HasOne(o => o.PokeTypes).WithMany().
-                HasForeignKey(o => o.PokeTypeId);
-            
-
-
         }
     }
 }

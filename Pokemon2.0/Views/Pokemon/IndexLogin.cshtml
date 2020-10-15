@@ -33,9 +33,7 @@
                 <td>@item.Name</td>
                 <td>@item.PokeTypes.Name</td>
                 <td>
-                    <a href="/Pokemon/Capturar?id=@item.Id">Capturar</a> |
-                    <input type="hidden" name="UserId" value="@ViewBag.UserId" />
-
+                    <a href="/Pokemon/Capturar?idpokemon=@item.Id">Capturar</a> 
                 </td>
             </tr>
         }

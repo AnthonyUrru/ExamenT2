@@ -13,5 +13,6 @@ namespace Pokemon2._0.Models
         public string ImagePath { get; set; }
         public int UserId{ get; set; }
         public PokeType PokeTypes { get; set; }
+        
     }
 }
