@@ -1,0 +1,36 @@
+﻿   @{ List<Pokemon>pokemons = ((List<Pokemon>)Model);
+        }
+
+        <h1>MIS POKEMONS</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th>Imagen</th>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Fecha</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in pokemons)
+                {
+                <tr>
+                    <td>
+                        <img src="@item.ImagePath" width="100" alt="Alternate Text" />
+                    </td>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.PokeTypes.Name</td>
+                    <td>@item.PokeTypes.Name</td>
+                    <td>
+                        <a href="/Pokemon/liberar?id=@item.Id">Liberar</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>

@@ -1,0 +1,37 @@
+﻿@{
+    var pokemon = (Pokemon)Model;
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+                <tr>
+                    <td>
+                        <img src="@pokemon.ImagePath" width="100" alt="Alternate Text" />
+                    </td>
+
+                    <td>@pokemon.Name</td>
+                    @foreach (var item in ViewBag.Types)
+                    {
+                        if (pokemon.PokeTypeId == item.Id)
+                        {
+                            <td>@item.Name</td>
+                        }
+
+
+                    }
+
+                </tr>
+        }
+
+
+    </tbody>
+</table>

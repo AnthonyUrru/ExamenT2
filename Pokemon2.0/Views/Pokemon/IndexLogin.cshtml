@@ -1,0 +1,43 @@
+﻿@{
+    List<Pokemon> pokemons = ((List<Pokemon>)Model);
+}
+
+<h1>POKEMONS</h1>
+
+
+<a href="/pokemon/registrar">Registrar Pokemon</a>
+<form action="/pokemon/buscar" method="post">
+    Ingrese Nombre de Pokemon
+    <input name="name" />
+    <button>Buscar</button>
+</form>
+   
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in pokemons)
+        {
+            <tr>
+                <td>
+                    <img src="@item.ImagePath" width="100" alt="Alternate Text" />
+                </td>
+                <td>@item.Name</td>
+                <td>@item.PokeTypes.Name</td>
+                <td>
+                    <a href="/Pokemon/Capturar?id=@item.Id">Capturar</a> |
+                    <input type="hidden" name="UserId" value="@ViewBag.UserId" />
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

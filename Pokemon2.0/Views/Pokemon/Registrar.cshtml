@@ -1,0 +1,25 @@
+﻿@{
+    var pokemon = (Pokemon)Model;
+}
+
+<h1>REGISTRAR PROKEMON</h1>
+
+
+<form action="/pokemon/registrar" enctype="multipart/form-data" method="post">
+
+    <input type="file" name="Image" />
+
+    Tipo <select name="PokeTypeId">
+        <option value="">-- Selecciona una opción --</option>
+        @foreach (var item in ViewBag.Types)
+        {
+            <option value="@item.Id">@item.Name</option>
+        }
+    </select>
+
+    Nombre <input name="Name" />
+
+  
+    <button>Guardar</button>
+
+</form>
